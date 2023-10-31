@@ -12,14 +12,14 @@ from xsbert.utils import load_sts_data
 
 
 # data
-sts_dataset_path = '../data/similarity/stsbenchmark.tsv.gz'
+sts_dataset_path = '../../data/similarity/stsbenchmark.tsv.gz'
 
 if not os.path.exists(sts_dataset_path):
     util.http_get('https://sbert.net/datasets/stsbenchmark.tsv.gz', sts_dataset_path)
 
 # training config
 model_name = 'sentence-transformers/all-mpnet-base-v2'
-model_save_path = '../xs_models/xs_mpnet_test'
+model_save_path = 'checkpoints/xs_mpnet_test'
 train_batch_size = 16 
 num_epochs = 5
 
