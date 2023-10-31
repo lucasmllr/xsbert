@@ -1,1 +1,2 @@
 checkpoints/xs_mpnet.zip filter=lfs diff=lfs merge=lfs -text
+checkpoints/xs_distilroberta.zip filter=lfs diff=lfs merge=lfs -text
