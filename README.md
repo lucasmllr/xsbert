@@ -1,7 +1,7 @@
 # An Attribution Method for Siamese Encoders
 
 This repository contains the code to the paper *An Attribution Method for Siamese Encoders* published at *EMNLP'23*.
-You can find the full paper in the ACL Antology and on arXiv.
+You can find the full paper in the ACL Antology and on [arXiv](https://arxiv.org/abs/2310.05703).
 
 ## Main Results
 It provides a method to attribute predictions of Siamese Encoders like sentence transformers to their inputs or intermediate representations.\
@@ -23,8 +23,11 @@ The `demo.ipynb` notebook contains a demo to load a model and compute attributio
 **Models**
 
 We provide two models. Both are fined-tuned from pre-trained sentence-transformers:
-- *xs-mpnet* is fine-tuned off the 12-layer [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) model.
-- *xs-droberta* is based on the shallower 4-layer [all-distillroberta-v1](https://huggingface.co/sentence-transformers/all-distilroberta-v1) model.
+- [*xs_mpnet*](https://www2.ims.uni-stuttgart.de/data/xsbert/xs_mpnet.zip) is fine-tuned off the 12-layer [all-mpnet-base-v2](https://huggingface.co/sentence-transformers/all-mpnet-base-v2) model.
+- [*xs_droberta*](https://www2.ims.uni-stuttgart.de/data/xsbert/xs_distilroberta.zip) is based on the shallower 4-layer [all-distillroberta-v1](https://huggingface.co/sentence-transformers/all-distilroberta-v1) model.
+
+You can use the `models.load_model()` method to download and initialize either of these models as shown in the demo notebook.
+Alternatively, you can also download the checkpoints by clicking the above links, unpack them, and initialize the `models.XSMPNet` or `models.XSRoberta` class from them.
 
 **Fine-Tuning**
 
