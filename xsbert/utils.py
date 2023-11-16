@@ -14,8 +14,7 @@ def plot_attributions(A, tokens_a, tokens_b,
     show_colobar: bool = False,
     cmap: str = 'RdBu',
     range: Optional[float] = None,
-    shrink_cbar: float = 1.,
-    bbox = None
+    shrink_cbar: float = 1.
 ):
     if isinstance(A, torch.Tensor):
         A = A.numpy()
@@ -31,7 +30,7 @@ def plot_attributions(A, tokens_a, tokens_b,
     if show_colobar:
         plt.colorbar(shrink=shrink_cbar)
     if dst_path is not None:
-        plt.savefig(dst_path, bbox_inches=bbox)
+        plt.savefig(dst_path, bbox_inches='tight')
         plt.close()
     else:
         plt.show()
