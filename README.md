@@ -9,6 +9,8 @@ The output takes the form of a feature-pair matrix and can be reduced to a token
 Attributions are theoretically guaranteed to sum up to the total model prediction. Therefore, they *faithfully* explain which combinations of features in the two inputs the model looks at for individual predictions.\
 The accuracy of attributions depends on a parameter *N* and we can measure it exactly case by case.
 
+![example](example_attribution.png)
+
 ## Installation
 You can use this code by cloning the repository and running
 `pip install .` inside the directory.\
