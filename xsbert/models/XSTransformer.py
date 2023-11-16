@@ -64,7 +64,7 @@ class XSTransformer(SentenceTransformer):
         J = J[:, :-1, :, :].sum(dim=1)
         return J
     
-    def explain_similarity(
+    def attribute_prediction(
             self, 
             text_a: str, 
             text_b: str, 
