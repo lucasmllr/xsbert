@@ -18,10 +18,14 @@ if not os.path.exists(sts_dataset_path):
     util.http_get('https://sbert.net/datasets/stsbenchmark.tsv.gz', sts_dataset_path)
 
 # training config
-model_name = 'sentence-transformers/all-mpnet-base-v2'
-model_save_path = 'checkpoints/xs_mpnet_test'
+# model_name = 'sentence-transformers/all-mpnet-base-v2'
+model_name ='sentence-transformers/all-distilroberta-v1'
+model_save_path = '../xs_models/xs_distilroberta'
 train_batch_size = 16 
 num_epochs = 5
+
+if not os.exists(model_save_path):
+    os.makedirs(model_save_path)
 
 # model
 word_embedding_model = ShiftingReferenceTransformer(model_name)
