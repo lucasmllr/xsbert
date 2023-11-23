@@ -1,11 +1,11 @@
 # An Attribution Method for Siamese Encoders
 
 This repository contains the code to the paper *An Attribution Method for Siamese Encoders* published at *EMNLP'23*.
-You can find the full paper in the ACL Antology and on [arXiv](https://arxiv.org/abs/2310.05703).
+You can find the full paper in the ACL Antology (comming soon) and on [arXiv](https://arxiv.org/abs/2310.05703).
 
 ## Main Results
-It provides a method to attribute predictions of Siamese Encoders like sentence transformers to their inputs or intermediate representations.\
-The output takes the form of a feature-pair matrix and can be reduced to a token--token matrix in the case of transformers. For some examples see below.\
+It provides a method to attribute predictions of Siamese encoders like sentence transformers to their inputs or intermediate representations.\
+The output takes the form of a feature-pair matrix and can be reduced to a token-token matrix in the case of transformers. For some examples see below.\
 Attributions are theoretically guaranteed to sum up to the total model prediction. Therefore, they *faithfully* explain which combinations of features in the two inputs the model looks at for individual predictions.\
 The accuracy of attributions depends on a parameter *N* and we can measure it exactly case by case. In the examples below, we calculate the attribution errors explicitly.
 
@@ -44,5 +44,3 @@ If you use this code for academic work, please cite our paper.
 
 ## Implementation
 Our Implementation builds up on the [sentence-transformers](https://github.com/UKPLab/sentence-transformers) package.
-
-## License
