@@ -1,7 +1,7 @@
 # An Attribution Method for Siamese Encoders
 
 This repository contains the code to the paper *An Attribution Method for Siamese Encoders* published at *EMNLP'23*.
-You can find the full paper in the ACL Antology (comming soon) and on [arXiv](https://arxiv.org/abs/2310.05703).
+You can find the full paper in the [ACL Antology](https://aclanthology.org/2023.emnlp-main.980) and on [arXiv](https://arxiv.org/abs/2310.05703).
 
 ## Main Results
 It provides a method to attribute predictions of Siamese encoders like sentence transformers to their inputs or intermediate representations.\
@@ -40,7 +40,21 @@ In the example, we use the [STS-benchmark](https://aclanthology.org/S17-2001/) d
 
 ## Citation
 
-If you use this code for academic work, please cite our paper.
+If you use this code for academic work, please cite our paper
+
+```bibtex
+@inproceedings{moeller-etal-2023-attribution,
+    title = "An Attribution Method for Siamese Encoders",
+    author = "Moeller, Lucas and Nikolaev, Dmitry and Pad{\'o}, Sebastian",
+    booktitle = "Proceedings of the 2023 Conference on Empirical Methods in Natural Language Processing",
+    year = "2023",
+    address = "Singapore",
+    publisher = "Association for Computational Linguistics",
+    url = "https://aclanthology.org/2023.emnlp-main.980",
+    doi = "10.18653/v1/2023.emnlp-main.980",
+    pages = "15818--15827"
+}
+```
 
 ## Implementation
 Our Implementation builds up on the [sentence-transformers](https://github.com/UKPLab/sentence-transformers) package.
