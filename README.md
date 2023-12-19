@@ -1,7 +1,7 @@
 # An Attribution Method for Siamese Encoders
 
 This repository contains the code to the paper *An Attribution Method for Siamese Encoders* published at *EMNLP'23*.
-You can find the full paper in the [ACL Antology](https://aclanthology.org/2023.emnlp-main.980) and on [arXiv](https://arxiv.org/abs/2310.05703).
+You can find the full paper in the [ACL Anthology](https://aclanthology.org/2023.emnlp-main.980) and on [arXiv](https://arxiv.org/abs/2310.05703).
 
 ## Main Results
 It provides a method to attribute predictions of Siamese encoders like sentence transformers to their inputs or intermediate representations.\
