@@ -172,16 +172,16 @@ class XSRoberta(XSTransformer):
         
         if hasattr(self, 'hook') and self.hook is not None:
             raise AttributeError('a hook is already registered')
+        assert idx < len(self[0].auto_model.encoder.layer), f'the model does not have a layer {idx}'
         try:
-            assert idx < len(self[0].auto_model.encoder.layer), f'the model does not have a layer {idx}'
+            self.N_steps = N_steps
+            self.intermediates = []
+            self.hook = self[0].auto_model.encoder.layer[idx].register_forward_pre_hook(
+                hooks.roberta_interpolation_hook(N=N_steps, outputs=self.intermediates)
+            )
         except AttributeError:
             raise AttributeError('The encoder model is not supported')
         
-        self.N_steps = N_steps
-        self.intermediates = []
-        self.hook = self[0].auto_model.encoder.layer[idx].register_forward_pre_hook(
-            hooks.roberta_interpolation_hook(N=N_steps, outputs=self.intermediates)
-        )
 
     def reset_attribution(self):
         if hasattr(self, 'hook'):
@@ -195,22 +195,22 @@ class XSMPNet(XSTransformer):
         
         if hasattr(self, 'hook') and self.interpolation_hook is not None:
             raise AttributeError('a hook is already registered')
+        assert idx < len(self[0].auto_model.encoder.layer), f'the model does not have a layer {idx}'
         try:
-            assert idx < len(self[0].auto_model.encoder.layer), f'the model does not have a layer {idx}'
+            self.N_steps = N_steps
+            self.intermediates = []
+            self.interpolation_hook = self[0].auto_model.encoder.layer[idx].register_forward_pre_hook(
+                hooks.mpnet_interpolation_hook(N=N_steps, outputs=self.intermediates)
+            )
+            self.reshaping_hooks = []
+            for l in range(idx + 1, len(self[0].auto_model.encoder.layer)):
+                handle = self[0].auto_model.encoder.layer[l].register_forward_pre_hook(
+                    hooks.mpnet_reshaping_hook(N=N_steps)
+                )
+                self.reshaping_hooks.append(handle)
         except AttributeError:
             raise AttributeError('The encoder model is not supported')
         
-        self.N_steps = N_steps
-        self.intermediates = []
-        self.interpolation_hook = self[0].auto_model.encoder.layer[idx].register_forward_pre_hook(
-            hooks.mpnet_interpolation_hook(N=N_steps, outputs=self.intermediates)
-        )
-        self.reshaping_hooks = []
-        for l in range(idx + 1, len(self[0].auto_model.encoder.layer)):
-            handle = self[0].auto_model.encoder.layer[l].register_forward_pre_hook(
-                hooks.mpnet_reshaping_hook(N=N_steps)
-            )
-            self.reshaping_hooks.append(handle)
 
     def reset_attribution(self):
         if hasattr(self, 'interpolation_hook'):
