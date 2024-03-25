@@ -1,13 +1,10 @@
 from torch.utils.data import DataLoader
 import math
-from sentence_transformers import SentenceTransformer, models, util
+from sentence_transformers import SentenceTransformer, models, util, losses
 from sentence_transformers.evaluation import EmbeddingSimilarityEvaluator
-from sentence_transformers.readers import InputExample
 import os
-import gzip
-import csv
 
-from xsbert.models import ShiftingReferenceTransformer, XSTransformer, DotSimilarityLoss
+from xsbert.models import ShiftingReferenceTransformer, ReferenceTransformer, XSTransformer, DotSimilarityLoss
 from xsbert.utils import load_sts_data
 
 
@@ -20,19 +17,23 @@ if not os.path.exists(sts_dataset_path):
 # training config
 # model_name = 'sentence-transformers/all-mpnet-base-v2'
 model_name ='sentence-transformers/all-distilroberta-v1'
-model_save_path = '../xs_models/xs_distilroberta'
+model_save_path = '../xs_models/droberta_cos'
 train_batch_size = 16 
 num_epochs = 5
 
-if not os.exists(model_save_path):
+if not os.path.exists(model_save_path):
     os.makedirs(model_save_path)
 
 # model
-word_embedding_model = ShiftingReferenceTransformer(model_name)
-pooling_model = models.Pooling(word_embedding_model.get_word_embedding_dimension())
+embedding_model = ShiftingReferenceTransformer(model_name)
+# If you want to fine-tune a model *without* exact attribution ability, you must use the below
+# ReferenceTransformer istead of the above ShiftingReferenceTransformer. This only makes sense if
+# you want to compare exact and approximate attributions of otherwise identical models.
+# word_embedding_model = ReferenceTransformer(model_name)
+pooling_model = models.Pooling(embedding_model.get_word_embedding_dimension())
 model = XSTransformer(
-    modules=[word_embedding_model, pooling_model],
-    device='cuda:0'
+    modules=[embedding_model, pooling_model],
+    device='cuda:2'
     )
 
 # dataloading
@@ -41,8 +42,11 @@ train_dataloader = DataLoader(train_samples, shuffle=True, batch_size=train_batc
 evaluator = EmbeddingSimilarityEvaluator.from_input_examples(dev_samples, name='sts-dev')
 
 # training
-train_loss = DotSimilarityLoss(model=model)
-model.fit(train_objectives=[(train_dataloader, train_loss)],
+loss = losses.CosineSimilarityLoss(model)
+# If you want to train a model with a dot-product instead of cosine as a similarity-measure
+# use the loss below instead.
+# loss = DotSimilarityLoss(model=model)
+model.fit(train_objectives=[(train_dataloader, loss)],
           evaluator=evaluator,
           epochs=num_epochs,
           evaluation_steps=1000,
