@@ -11,10 +11,11 @@ from sentence_transformers.readers import InputExample
 def plot_attributions(A, tokens_a, tokens_b, 
     size: Tuple = (7, 7), 
     dst_path: Optional[PathLike] = None,
-    show_colobar: bool = False,
+    show_colorbar: bool = False,
     cmap: str = 'RdBu',
     range: Optional[float] = None,
-    shrink_cbar: float = 1.
+    shrink_colorbar: float = 1.,
+    bbox = None
 ):
     if isinstance(A, torch.Tensor):
         A = A.numpy()
@@ -27,13 +28,13 @@ def plot_attributions(A, tokens_a, tokens_b,
     plt.imshow(A, cmap=cmap, vmin=-range, vmax=range)
     plt.yticks(np.arange(A.shape[0]), labels=tokens_a)
     plt.xticks(np.arange(A.shape[1]), labels=tokens_b, rotation=50, ha='right')
-    if show_colobar:
-        plt.colorbar(shrink=shrink_cbar)
+    if show_colorbar:
+        plt.colorbar(shrink=shrink_colorbar)
     if dst_path is not None:
-        plt.savefig(dst_path, bbox_inches='tight')
+        plt.savefig(dst_path, bbox_inches=bbox)
         plt.close()
     else:
-        plt.show()
+        return f
 
 
 def input_to_device(inpt: dict, device: torch.device):

@@ -35,8 +35,8 @@ def progress(current, total, width):
   sys.stdout.flush()
 
 def load_model(name: str, model_dir: PathLike = '../xs_models/'):
-    assert name in ['xs_mpnet', 'xs_distilroberta'], \
-        'available models are: xs_mpnet and xs_distilroberta'
+    assert name in ['mpnet_cos', 'mpnet_dot','droberta_cos', 'droberta_dot'], \
+        'available models are: mpnet_cos, mpnet_dot, droberta_cos, droberta_dot'
     if not exists(model_dir):
         os.makedirs(model_dir)
     path = join(model_dir, name)
@@ -50,8 +50,8 @@ def load_model(name: str, model_dir: PathLike = '../xs_models/'):
         with zipfile.ZipFile(zip_path, 'r') as f:
             f.extractall(model_dir)
     print('initializing')
-    if name.endswith('roberta'):
+    if name.startswith('droberta'):
         model = XSRoberta(path)
-    elif name.endswith('mpnet'):
+    elif name.startswith('mpnet'):
         model = XSMPNet(path)
     return model
