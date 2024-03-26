@@ -10,7 +10,8 @@ setup(
     packages=['xsbert'],
     install_requires=[
         'sentence-transformers',
-        'matplotlib'
+        'matplotlib',
+        'wget'
         ],
 
     classifiers=[
